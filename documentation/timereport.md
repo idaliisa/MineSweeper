@@ -12,3 +12,6 @@ Date      | Time  | Topic  |
 Date      | Time  | Topic  |
 ----------|-------|--------|
 13.5.2019 | 3,5h  | Started coding |
+15.5.2019 | 1,5h  | Coding and refactoring game logics |
+16.5.2019 | 3,5h  | Junit-tests and debugging |
+17.5.2019 | 1h    | Javadoc and specification document |
