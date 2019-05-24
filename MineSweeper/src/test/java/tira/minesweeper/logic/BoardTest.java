@@ -36,7 +36,7 @@ public class BoardTest {
         board.placeNumbers();
         
         //open square (2,2)
-        //board.openField(board.getFieldAt(2, 2));
+        board.openField(board.getFieldAt(2, 2));
     }
     
     @Test 
@@ -49,7 +49,7 @@ public class BoardTest {
         assertFalse(board.inBounds(3, 3));
     }
 
- /*
+ 
     @Test
     public void fieldsOpenedCorrectly1() {               
         assertFalse(board.getFieldAt(0, 0).isOpened());   
@@ -98,7 +98,7 @@ public class BoardTest {
     public void fieldsOpenedCorrectly12() {
         assertTrue(board.getFieldAt(3, 2).isOpened());    
     }
-*/
+    
    
     @Test
     public void calculatesNeigbourMinesCorrectly1() {

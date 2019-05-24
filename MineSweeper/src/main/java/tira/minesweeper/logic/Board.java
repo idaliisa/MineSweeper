@@ -151,26 +151,34 @@ public class Board {
         }            
     }
     
-    /*
-    //there is a bug
+    
+    /**
+     * opens fields recursively
+     * @param field 
+     */
     public void openField(Field field) {
-        field.isOpened = true;
-        if (field.number == 0) {
-            openNeighbours(field);        
-        }
-    }
-    
-    
-    
-    public void openNeighbours(Field field) {
-        ArrayList<Field> neighbours = getNeighbours(field);
-        for (Field n : neighbours) {
-            if (!n.isOpened) {
-                openField(field);
+        if (inBounds(field.coordinate) && !field.isOpened) {
+            field.isOpened = true;
+            if (field.number == 0) {
+                openNeighbours(field);        
             }
         }
     }
-    */  
+    
+    
+    /**
+     * help method for openField()
+     * @param field 
+     */
+    public void openNeighbours(Field field) {
+        ArrayList<Field> neighbours = getNeighbours(field);
+        for (Field n : neighbours) {
+            if (inBounds(field.coordinate) && !n.isOpened) {
+                openField(n);
+            }
+        }
+    }
+     
     
     
 }
