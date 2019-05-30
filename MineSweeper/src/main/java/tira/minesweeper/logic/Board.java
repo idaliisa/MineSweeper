@@ -5,6 +5,7 @@
  */
 package tira.minesweeper.logic;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,14 +22,19 @@ public class Board {
     public Field[][] grid;
     int rows;
     int cols;
-    //ArrayList<Coordinate> mines;
+    int totalMines;
+    int flaggedMines;
+    int openedFields;
+    //ArrayList<Coordinate> totalMines;
 
     public Board(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.grid = new Field[rows][cols];
+        this.flaggedMines = 0;
+        this.openedFields = 0;
         createBoard();
-        //this.mines = new ArrayList<>();
+        //this.totalMines = new ArrayList<>();
     }
     
 
@@ -43,22 +49,22 @@ public class Board {
     }
 
     /**
-     * Set mines after createBoard()
+     * Set totalMines after createBoard()
      * @param mineCount 
      */
     public void placeMines(int mineCount) {
         Random r = new Random();
 
-        int mineCounter = 0;
+        totalMines = 0;
                 
-        while (mineCounter < mineCount) {
+        while (totalMines < mineCount) {
             int y = r.nextInt(rows);
             int x = r.nextInt(cols);
             
             if (getFieldAt(x, y).hasMine == false) {
-                Coordinate c = new Coordinate(x, y);
+                //Coordinate c = new Coordinate(x, y);
                 getFieldAt(x, y).hasMine = true;
-                mineCounter++;
+                totalMines++;
                 //mines.add(c);
             }
         }        
@@ -159,7 +165,9 @@ public class Board {
     public void openField(Field field) {
         if (inBounds(field.coordinate) && !field.isOpened) {
             field.isOpened = true;
-            if (field.number == 0) {
+            openedFields++;
+            //to-do:refactor
+            if (field.number == 0 && !isFailed(field.coordinate.x, field.coordinate.y)) {
                 openNeighbours(field);        
             }
         }
@@ -178,7 +186,82 @@ public class Board {
             }
         }
     }
-     
+    
+    
+    
+    
+    //to-do: open all neighbours if flaggedNeigboursCount equals to neighboursMineCount
+    
+    
+    
+    public void setMine(Field field) {
+        if (field.hasMine == false) {
+            totalMines++;
+        }
+        field.hasMine = true;
+    }
+    
+    
+    
+    public void setFlag(Field field) {
+        if (field.hasFlag == false) {
+            flaggedMines++;
+        }
+        field.hasFlag = true;
+    }
+    
+    
+    
+    public void removeFlag(Field field) {
+        if (field.hasFlag == true) {
+            flaggedMines--;
+        }
+        field.hasFlag = false;
+    }
+    
+
+    
+    public int numberUnfoundMines() {
+        return totalMines - flaggedMines;
+    }
+    
+    
+    
+    public boolean isFailed(int x, int y) {
+        if (getFieldAt(x, y).hasMine && getFieldAt(x, y).isOpened) {
+            return true;
+        } else {
+            return false;
+        }        
+    }
+    
+    
+  
+    public boolean isSolved() {
+        if (totalMines == (rows * cols - openedFields)) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+    /**
+     * 
+     * @param field
+     * @return Field state by the highest priority first: mine, number, flag or closed
+     */
+    //to-do: refactor
+    public String getState(Field field) {
+        if (field.isOpened && field.hasMine) {
+            return State.MINE.toString();
+        } else  if (field.isOpened) {
+            return field.getNumber() +"";
+        } else if (field.hasFlag) {
+            return State.FLAG.toString();
+        } else {
+            return "";
+        }
+    }
     
     
 }
