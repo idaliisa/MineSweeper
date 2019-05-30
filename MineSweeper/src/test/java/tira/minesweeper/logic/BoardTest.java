@@ -30,8 +30,8 @@ public class BoardTest {
         board = new Board(3, 4);
         
         //set two mines in x-y coordinates (0,0) and (1,0)
-        board.getFieldAt(0, 0).setMine();
-        board.getFieldAt(1, 0).setMine();
+        board.setMine(board.getFieldAt(0, 0));
+        board.setMine(board.getFieldAt(1, 0));
         
         board.placeNumbers();
         
@@ -42,8 +42,7 @@ public class BoardTest {
     @Test 
     public void boundCheckWorks1() {
         assertTrue(board.inBounds(3, 2));
-    }
-    
+    }    
     @Test 
     public void boundCheckWorks2() {
         assertFalse(board.inBounds(3, 3));
@@ -149,4 +148,61 @@ public class BoardTest {
         assertEquals(0, board.getFieldAt(3, 2).getNumber());    
     }
     
+    @Test
+    public void isFailedWorks1() {
+        board.openField(board.getFieldAt(0, 0));
+        assertTrue(board.isFailed(0, 0));
+    }   
+    @Test
+    public void isFailedWorks2() {
+        board.openField(board.getFieldAt(2, 0));
+        assertFalse(board.isFailed(2, 0));
+    }
+
+    @Test
+    public void calcultesUnfoundMinesCorrectly1() {
+        assertEquals(2, board.numberUnfoundMines());
+    }
+    @Test
+    public void calcultesUnfoundMinesCorrectly2() {
+        board.setFlag(board.getFieldAt(0, 0));
+        assertEquals(1, board.numberUnfoundMines());
+    }
+    @Test
+    public void calcultesUnfoundMinesCorrectly3() {
+        board.setFlag(board.getFieldAt(0, 0));
+        board.setFlag(board.getFieldAt(1, 0));
+        board.removeFlag(board.getFieldAt(0, 0));
+        assertEquals(1, board.numberUnfoundMines());
+    }
+    
+    @Test
+    public void isSolvedWorks() {
+        assertTrue(board.isSolved());
+    }
+    
+    @Test
+    public void calculatesOpenedFieldsCorrectly() {
+        assertEquals(10, board.openedFields);
+    }
+    
+    @Test
+    public void getStateCorrectly1() {
+        assertEquals("2", board.getState(board.getFieldAt(0, 1)));
+    }   
+    @Test
+    public void getStateCorrectly2() {
+        assertEquals("", board.getState(board.getFieldAt(0, 0)));
+    }
+    @Test
+    public void getStateCorrectly3() {
+        board.setFlag(board.getFieldAt(0, 0));
+        assertEquals("FLAG", board.getState(board.getFieldAt(0, 0)));
+    }
+    @Test
+    public void getStateCorrectly4() {
+        board.setFlag(board.getFieldAt(0, 0));
+        board.openField(board.getFieldAt(0, 0));
+        assertEquals("MINE", board.getState(board.getFieldAt(0, 0)));
+    }
 }
