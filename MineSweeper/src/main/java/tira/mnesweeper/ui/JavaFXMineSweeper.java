@@ -16,10 +16,15 @@ import javafx.stage.Stage;
  * @author ida
  */
 public class JavaFXMineSweeper extends Application {
-
+    public static int rows = 10;
+    public static int cols = 10;
+    public static int mines = 5;
+    public static double fieldSize = 30.0;
+    
     @Override
-    public void start(Stage primaryStage)  throws Exception {
+    public void start(Stage stage)  throws Exception {
         //read fxml-file to build GUI
+        //atm fxml-file needs to be modified by hand if row, col or fieldsize changed
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
         Parent parent = (Parent) fxmlLoader.load();
         
@@ -27,13 +32,14 @@ public class JavaFXMineSweeper extends Application {
         SceneController controller = fxmlLoader.<SceneController>getController();
         
         //set board size and mine count
-        controller.setCols(3);
-        controller.setRows(3);
-        controller.setMines(2);
+        controller.setCols(cols);
+        controller.setRows(rows);
+        controller.setFieldsize(fieldSize);
+        controller.setMines(mines);
         
         Scene scene = new Scene(parent);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
     
     public static void main(String[] args) {
