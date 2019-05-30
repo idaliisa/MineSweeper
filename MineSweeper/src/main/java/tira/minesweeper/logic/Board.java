@@ -6,8 +6,8 @@
 package tira.minesweeper.logic;
 
 
-import java.util.ArrayList;
 import java.util.Random;
+import tira.datastructures.CustomArrayList;
 
 
 /**
@@ -108,8 +108,8 @@ public class Board {
      * @param f field
      * @return neighbour fields
      */
-    public ArrayList<Field> getNeighbours(Field f) {
-        ArrayList<Field> neighbours = new ArrayList<>();
+    public CustomArrayList<Field> getNeighbours(Field f) {
+        CustomArrayList<Field> neighbours = new CustomArrayList<>();
 
         if (inBounds(f.coordinate.x - 1, f.coordinate.y - 1)) {
             neighbours.add(getFieldAt(f.coordinate.x - 1, f.coordinate.y - 1));
@@ -147,8 +147,9 @@ public class Board {
     public void placeNumbers() {
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                ArrayList<Field> neighbours = getNeighbours(grid[y][x]);
-                for (Field n : neighbours) {
+                CustomArrayList<Field> neighbours = getNeighbours(grid[y][x]);
+                for (int i = 0; i < neighbours.size(); i++) {
+                    Field n = (Field) neighbours.get(i);
                     if (n.hasMine) {
                         grid[y][x].number++;
                     }
@@ -179,8 +180,9 @@ public class Board {
      * @param field 
      */
     public void openNeighbours(Field field) {
-        ArrayList<Field> neighbours = getNeighbours(field);
-        for (Field n : neighbours) {
+        CustomArrayList<Field> neighbours = getNeighbours(field);
+        for (int i = 0; i < neighbours.size(); i++) {
+            Field n = (Field) neighbours.get(i);
             if (inBounds(field.coordinate) && !n.isOpened) {
                 openField(n);
             }

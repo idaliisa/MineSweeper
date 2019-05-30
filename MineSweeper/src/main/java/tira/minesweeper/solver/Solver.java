@@ -5,7 +5,7 @@
  */
 package tira.minesweeper.solver;
 
-import java.util.ArrayList;
+import tira.datastructures.CustomArrayList;
 import tira.minesweeper.logic.Coordinate;
 import tira.minesweeper.logic.Field;
 
@@ -19,8 +19,8 @@ public class Solver {
      * Finds block of unopened fields whose mine status is independent of unopened fields outside the block
      * @return Fields within the block
      */
-    public ArrayList<Field> commonBlock() {
-        ArrayList<Field> block = new ArrayList<>();
+    public CustomArrayList<Field> commonBlock() {
+        CustomArrayList<Field> block = new CustomArrayList<>();
         //to-do
         return block;
     }    
