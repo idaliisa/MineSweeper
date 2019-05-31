@@ -24,3 +24,13 @@ Date      | Time  | Topic  |
 22.5.2019 | 3h  | GUI |
 23.5.2019 | 1,5h  | GUI|
 24.5.2019 | 0,5h  | Report |
+
+## Week 4
+
+Date      | Time  | Topic  |
+----------|-------|--------|
+26.5.2019 | 6h    | GUI, game logics |
+27.5.2019 | 1,5h  | Game logics |
+28.5.2019 | 1,5h  | Game logics |
+30.5.2019 | 2h    | Game logics, datastructures |
+31.5.2019 | 3h    | Architecture, solver |
