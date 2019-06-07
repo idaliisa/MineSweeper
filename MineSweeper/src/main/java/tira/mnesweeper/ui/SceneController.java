@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import tira.minesweeper.logic.Board;
+import tira.minesweeper.solver.Solver;
 
 /**
  * FXML Controller class
@@ -34,11 +35,10 @@ public class SceneController implements Initializable {
     private GraphicsContext gc; 
     private Button startButton;
     private AnchorPane anchorpane;
-    private Label unfoundMines;
     
     int rows, cols, mines;
     double fieldsize;
-    private Board board;
+    private Solver solver;
 
     public SceneController() {
 
@@ -60,9 +60,8 @@ public class SceneController implements Initializable {
     @FXML
     private void handleGame(ActionEvent event) {
         
-        board = new Board(rows, cols);
-        board.placeMines(mines);
-        board.placeNumbers();
+        solver = new Solver(rows, cols, mines);
+        solver.init();
         
         //to-do: take animation timer away
         new AnimationTimer() {
@@ -75,25 +74,22 @@ public class SceneController implements Initializable {
                     return;
                 }
                 previous = now;
-                
-                //there is a bug               
-                //unfoundMines.setText("mines: " + board.numberUnfoundMines());
-                
+                               
                 //to-do: add square borders, images, colors and solved/failed
                 gc.setFill(Color.WHITE);
-                gc.fillRect(0, 0, rows * fieldsize, cols * fieldsize);
+                gc.fillRect(0, 0, cols * fieldsize, rows * fieldsize);
                 
                 gc.setFill(Color.BLACK);
                 for (int y = 0; y < rows; y++) {
                     for (int x = 0; x < cols; x++) {
-                        String status = board.getState(board.getFieldAt(x, y));
+                        String status = solver.board.getState(solver.board.getFieldAt(x, y));
                         gc.fillText(status, (x + 0.5) * fieldsize, (y + 0.5) * fieldsize);
                         
-                        if (board.isFailed(x, y)) {
+                        if (solver.board.isFailed(x, y)) {
                             this.stop();
                         }
                         
-                        if (board.isSolved()) {
+                        if (solver.board.isSolved()) {
                             this.stop();
                         }
                     }
@@ -104,6 +100,8 @@ public class SceneController implements Initializable {
         }.start();
     }
     
+    
+    
     /**
      * Open square on left click and set/remove flag on right click
      * @param event 
@@ -113,13 +111,25 @@ public class SceneController implements Initializable {
         if (event.getEventType().equals(event.MOUSE_RELEASED)) {
             int row = (int) event.getX() / (int) fieldsize;
             int col = (int) event.getY() / (int) fieldsize;
+            if (!solver.board.inBounds(row, col)) {
+                return;
+            }
             if (event.getButton() == MouseButton.PRIMARY) {
-                board.openField(board.getFieldAt(row, col));
+                solver.board.openField(solver.board.getFieldAt(row, col));
             } else {
-                board.setFlag(board.getFieldAt(row, col));
+                solver.board.setFlag(solver.board.getFieldAt(row, col));
             }
             
         }
+    }
+    
+    
+    /**
+     * Fires when 'Simulate' button is clicked.
+     */
+    @FXML
+    private void handleSimulation() {
+        solver.DSSP();
     }
   
     
@@ -127,15 +137,23 @@ public class SceneController implements Initializable {
         this.cols = cols;
     }
 
+    
+    
     public void setRows(int rows) {
         this.rows = rows;
     }
 
+    
+    
     public void setMines(int mines) {
         this.mines = mines;
     }
 
+    
+    
     public void setFieldsize(double fieldsize) {
         this.fieldsize = fieldsize;
-    }    
+    } 
+    
+    
 }
