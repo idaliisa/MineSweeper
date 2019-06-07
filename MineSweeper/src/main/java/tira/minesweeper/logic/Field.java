@@ -49,7 +49,40 @@ public class Field {
     public boolean hasFlag() {
         return hasFlag;
     }
+
     
     
+    public boolean hasMine() {
+        return hasMine;
+    }
+
+    
+        
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+    
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Field o = (Field) obj;
+        
+        if (o.getCoordinate().x == this.getCoordinate().x && o.getCoordinate().y == this.getCoordinate().y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    
+    //to-do: hashCode
         
 }
