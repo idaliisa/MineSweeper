@@ -149,14 +149,24 @@ public class BoardTest {
     }
     
     @Test
-    public void isFailedWorks1() {
+    public void isFailedAtWorks1() {
         board.openField(board.getFieldAt(0, 0));
         assertTrue(board.isFailed(0, 0));
     }   
     @Test
-    public void isFailedWorks2() {
+    public void isFailedAtWorks2() {
         board.openField(board.getFieldAt(2, 0));
         assertFalse(board.isFailed(2, 0));
+    }
+    @Test
+    public void isFailedWorks1() {
+        board.openField(board.getFieldAt(0, 0));
+        assertTrue(board.isFailed());
+    }   
+    @Test
+    public void isFailedWorks2() {
+        board.openField(board.getFieldAt(2, 0));
+        assertFalse(board.isFailed());
     }
 
     @Test
@@ -197,12 +207,12 @@ public class BoardTest {
     @Test
     public void getStateCorrectly3() {
         board.setFlag(board.getFieldAt(0, 0));
-        assertEquals("FLAG", board.getState(board.getFieldAt(0, 0)));
+        assertEquals("F", board.getState(board.getFieldAt(0, 0)));
     }
     @Test
     public void getStateCorrectly4() {
         board.setFlag(board.getFieldAt(0, 0));
         board.openField(board.getFieldAt(0, 0));
-        assertEquals("MINE", board.getState(board.getFieldAt(0, 0)));
+        assertEquals("M", board.getState(board.getFieldAt(0, 0)));
     }
 }
