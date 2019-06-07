@@ -11,13 +11,13 @@ import java.util.Arrays;
  *
  * @author ida
  */
-public class CustomArrayList<Class> {
+public class CustomArrayList<Item> {
     
-    private Class[] list;
+    private Item[] list;
     private int actualSize;
 
     public CustomArrayList() {
-        list = (Class[]) new Object[10];
+        list = (Item[]) new Object[10];
     }
     
     
@@ -36,7 +36,9 @@ public class CustomArrayList<Class> {
         }
     }
     
-    public void add(Class obj) {
+    
+    
+    public void add(Item obj) {
         if(list.length - actualSize <= 0) {
             increaseListSize();
         }

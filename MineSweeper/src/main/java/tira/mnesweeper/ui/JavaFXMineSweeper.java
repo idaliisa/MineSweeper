@@ -12,19 +12,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *Main class of MineSweeper graphical user interface
+ * Main class of MineSweeper graphical user interface
  * @author ida
  */
 public class JavaFXMineSweeper extends Application {
-    public static int rows = 10;
-    public static int cols = 10;
-    public static int mines = 5;
+    //to-do: add final int for the max row (16), max col(30) and max mine. Allow lesser only. 
+    //This restriction is because of the GUI.
+    public static int rows = 16;
+    public static int cols = 30;
+    public static int mines = 99;
     public static double fieldSize = 30.0;
+    
+    
     
     @Override
     public void start(Stage stage)  throws Exception {
         //read fxml-file to build GUI
-        //atm fxml-file needs to be modified by hand if row, col or fieldsize changed
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
         Parent parent = (Parent) fxmlLoader.load();
         
@@ -41,6 +44,8 @@ public class JavaFXMineSweeper extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    
+    
     
     public static void main(String[] args) {
         launch(args);

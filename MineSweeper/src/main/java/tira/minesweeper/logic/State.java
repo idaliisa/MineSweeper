@@ -10,9 +10,9 @@ package tira.minesweeper.logic;
  * @author ida
  */
 public enum State {
-    
-    MINE,
-    FLAG,
+    //to-do: refactor
+    M,
+    F,
     NUMBER,
     CLOSED;
     
