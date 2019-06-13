@@ -21,7 +21,6 @@ public class Field {
     boolean isOpened;
     int number;
     Coordinate coordinate;
-    //State state;
 
     public Field(Coordinate c) {
         this.hasMine = false;
@@ -29,7 +28,6 @@ public class Field {
         this.isOpened = false;
         this.number = 0;
         this.coordinate = c;
-        //this.state = State.CLOSED;
     }
     
     
@@ -83,6 +81,9 @@ public class Field {
     
     
     
-    //to-do: hashCode
+    @Override
+    public int hashCode() {
+        return coordinate.x;
+    }
         
 }

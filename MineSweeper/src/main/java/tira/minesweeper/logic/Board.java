@@ -6,7 +6,6 @@
 package tira.minesweeper.logic;
 
 
-import java.util.ArrayList;
 import java.util.Random;
 import tira.datastructures.CustomArrayList;
 
@@ -26,7 +25,6 @@ public class Board {
     int totalMines;
     int flaggedMines;
     int openedFields;
-    //ArrayList<Coordinate> totalMines;
 
     public Board(int rows, int cols) {
         this.rows = rows;
@@ -35,7 +33,6 @@ public class Board {
         this.flaggedMines = 0;
         this.openedFields = 0;
         createBoard();
-        //this.totalMines = new ArrayList<>();
     }
     
     
@@ -71,10 +68,8 @@ public class Board {
             int x = r.nextInt(cols);
             
             if (getFieldAt(x, y).hasMine == false && !getFieldAt(x, y).equals(firstClick)) {
-                //Coordinate c = new Coordinate(x, y);
                 getFieldAt(x, y).hasMine = true;
                 totalMines++;
-                //mines.add(c);
             }
         }        
     }
@@ -117,8 +112,8 @@ public class Board {
      * @param f field
      * @return neighbour fields
      */
-    public ArrayList<Field> getNeighbours(Field f) {
-        ArrayList<Field> neighbours = new ArrayList<>();
+    public CustomArrayList<Field> getNeighbours(Field f) {
+        CustomArrayList<Field> neighbours = new CustomArrayList<>();
 
         if (inBounds(f.coordinate.x - 1, f.coordinate.y - 1)) {
             neighbours.add(getFieldAt(f.coordinate.x - 1, f.coordinate.y - 1));
@@ -157,9 +152,9 @@ public class Board {
     //to-do:change this method so that numbers are counted only after field is opened
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                ArrayList<Field> neighbours = getNeighbours(getFieldAt(x, y));
+                CustomArrayList<Field> neighbours = getNeighbours(getFieldAt(x, y));
                 for (int i = 0; i < neighbours.size(); i++) {
-                    Field n = (Field) neighbours.get(i);
+                    Field n = neighbours.get(i);
                     if (n.hasMine) {
                         getFieldAt(x, y).number++;
                     }
@@ -190,9 +185,9 @@ public class Board {
      * @param field 
      */
     public void openNeighbours(Field field) {
-        ArrayList<Field> neighbours = getNeighbours(field);
+        CustomArrayList<Field> neighbours = getNeighbours(field);
         for (int i = 0; i < neighbours.size(); i++) {
-            Field n = (Field) neighbours.get(i);
+            Field n = neighbours.get(i);
             if (inBounds(field.coordinate) && !n.isOpened) {
                 openField(n);
             }
