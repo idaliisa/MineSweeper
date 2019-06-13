@@ -5,10 +5,11 @@
  */
 package tira.minesweeper.solver;
 
-import java.util.ArrayList;
+
 import java.util.Random;
-import java.util.Stack;
 import tira.datastructures.CustomArrayList;
+import tira.datastructures.CustomHashSet;
+import tira.datastructures.CustomHashSet.CustomIterator;
 import tira.minesweeper.logic.Board;
 import tira.minesweeper.logic.Field;
 
@@ -18,16 +19,16 @@ import tira.minesweeper.logic.Field;
  */
 public class Solver {
     public Board board;
-    Stack<Field> safeFields;
-    Stack<Field> questionFields;
+    CustomHashSet<Field> safeFields;
+    CustomHashSet<Field> questionFields;
     Field x;
     int xCoord, yCoord, rows, cols, mines, checked;
     Random random;
 
    
     public Solver(int rows, int cols, int mines) {
-        this.safeFields = new Stack();
-        this.questionFields = new Stack();
+        this.safeFields = new CustomHashSet();
+        this.questionFields = new CustomHashSet();
         this.rows = rows;
         this.cols = cols;
         this.mines = mines;
@@ -64,10 +65,7 @@ public class Solver {
      * Here it may fail or continue until the game is solved.
      */
     public void DSSP() {
-        //to-do: uses stack and arrayList at the moment. Change to hashSet and get rid of helper lists.
-        
-        safeFields.clear();
-        questionFields.clear();
+      
         
         //use a global variable x for the field that is under handling
         safeFields.add(x);
@@ -79,78 +77,67 @@ public class Solver {
                 x = getRandomField(getUnknowns());
                 safeFields.add(x);
             }
+            
             //open safeFields and stop if randomly selected field is mine
             while (!safeFields.isEmpty()) {
-                x  = safeFields.pop();
+                CustomIterator iterator = safeFields.iterator();
+                Field x = (Field) iterator.next();
+                safeFields.remove(x);
                 board.openOneField(x);
                 checked++;
                 if (x.hasMine()) {
                     return;
                 }
             
-            //check whether new safeFields are found
-            xCoord = x.getCoordinate().x;
-            yCoord = x.getCoordinate().y;
-            if (isAFN(xCoord, yCoord)) {
-                ArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
-                for (int i = 0; i < unFlagged.size(); i++) {
-                    if (!safeFields.contains(unFlagged.get(i))) {
-                        safeFields.add(unFlagged.get(i));
-                    }                          
-                }
-            } else {
-                if (!questionFields.contains(x)) {
-                    questionFields.add(x);
-                }                        
-            }
-               
-
-            }
-
-            //helper list
-            ArrayList<Field> toBeRemoved = new ArrayList<>();
-            //check questionFields if all the neigbours can be flagged
-            for (int i = 0; i < questionFields.size(); i++) {
-                x = questionFields.get(i);
-                xCoord = x.getCoordinate().x;
-                yCoord = x.getCoordinate().y;
-                if (isAMN(xCoord, yCoord)) {
-                    ArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
-                    for (int j = 0; j < unFlagged.size(); j++) {
-                        board.setFlag(unFlagged.get(j));
-                        checked++;
-                    }
-                    toBeRemoved.add(x);
-                }
-            }
-            //use heldeper list
-            for (int i = 0; i < toBeRemoved.size(); i++) {
-                questionFields.remove(toBeRemoved.get(i));
-            }
-            //empty helper list
-            toBeRemoved.clear();
-
-            //check questionFields if some of them are now safe to open
-            for (int i = 0; i < questionFields.size(); i++) {
-                x = questionFields.get(i);
+                //check whether new safeFields are found
                 xCoord = x.getCoordinate().x;
                 yCoord = x.getCoordinate().y;
                 if (isAFN(xCoord, yCoord)) {
-                    ArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
+                    CustomArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
+                    for (int i = 0; i < unFlagged.size(); i++) {
+                            safeFields.add(unFlagged.get(i));                
+                    }
+                } else {
+                    questionFields.add(x);
+                }
+               
+            }
+
+            //check questionFields if all the neigbours can be flagged
+            CustomIterator iterator = questionFields.iterator();
+            while (iterator.hasNext()) {
+                Field f =  (Field) iterator.next();
+                xCoord = f.getCoordinate().x;
+                yCoord = f.getCoordinate().y;
+                
+                if (isAMN(xCoord, yCoord)) {
+                    CustomArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
+                    for (int j = 0; j < unFlagged.size(); j++) {
+                        board.setFlag(unFlagged.get(j));
+                        //checked++;
+                    }
+                    questionFields.remove(x);
+                }
+            }
+
+
+            //check questionFields if some of them are now safe to open
+            iterator = questionFields.iterator();
+            while (iterator.hasNext()) {
+                    Field f =  (Field) iterator.next();
+                    xCoord = f.getCoordinate().x;
+                    yCoord = f.getCoordinate().y;
+                
+                if (isAFN(xCoord, yCoord)) {
+                    CustomArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
                     for (int j = 0; j < unFlagged.size(); j++) {
                         safeFields.add(unFlagged.get(j));
                     }
-                    toBeRemoved.add(x);
+                    questionFields.remove(x);
+
                 }
             }
-            //use helper list
-            for (int i = 0; i < toBeRemoved.size(); i++) {
-                questionFields.remove(toBeRemoved.get(i));
-            }
-            //empty helper list
-            toBeRemoved.clear();
-            
-            
+   
         } 
        
     }
@@ -192,9 +179,9 @@ public class Solver {
      * @param y y coordiante
      * @return list of closed neighbours that are unflagged
      */
-    public ArrayList<Field> getUnFlaggeddNeighbours(int x, int y) {
-        ArrayList<Field> neigbours = board.getNeighbours(board.getFieldAt(x, y));
-        ArrayList<Field> unFlaggedNeigbours = new ArrayList<>();
+    public CustomArrayList<Field> getUnFlaggeddNeighbours(int x, int y) {
+        CustomArrayList<Field> neigbours = board.getNeighbours(board.getFieldAt(x, y));
+        CustomArrayList<Field> unFlaggedNeigbours = new CustomArrayList<>();
         for (int i = 0; i < neigbours.size(); i++) {
             Field n = neigbours.get(i);
             if (!n.isOpened() && !n.hasFlag()) {
@@ -224,7 +211,7 @@ public class Solver {
      */
     public int getFlaggedCount(int x, int y) {
         int flagged = 0;
-        ArrayList<Field> neigbours = board.getNeighbours(board.getFieldAt(x, y));
+        CustomArrayList<Field> neigbours = board.getNeighbours(board.getFieldAt(x, y));
         for (int i = 0; i < neigbours.size(); i++) {
             Field n = neigbours.get(i);
             if (!n.isOpened() && n.hasFlag()) {
@@ -240,8 +227,8 @@ public class Solver {
      * closed and unflagged
      * @return 
      */
-    public ArrayList<Field> getUnknowns() {
-        ArrayList<Field> unknowns = new ArrayList<>();
+    public CustomArrayList<Field> getUnknowns() {
+        CustomArrayList<Field> unknowns = new CustomArrayList<>();
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 Field f = board.getFieldAt(x, y);
@@ -259,7 +246,7 @@ public class Solver {
      * @param unknowns
      * @return random field amongst unkown fields
      */
-    public Field getRandomField(ArrayList<Field> unknowns) {
+    public Field getRandomField(CustomArrayList<Field> unknowns) {
         Random r = new Random();
         int idx = r.nextInt(unknowns.size());
         return unknowns.get(idx);

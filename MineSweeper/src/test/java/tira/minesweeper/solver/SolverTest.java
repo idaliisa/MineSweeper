@@ -5,15 +5,11 @@
  */
 package tira.minesweeper.solver;
 
-import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import tira.minesweeper.logic.Board;
-import tira.minesweeper.logic.Field;
 
 /**
  *
@@ -83,15 +79,6 @@ public class SolverTest {
         solver.board.openField(solver.board.getFieldAt(3, 2));
         solver.board.openField(solver.board.getFieldAt(3, 4));
         assertTrue(solver.isAMN(2, 3));
-    }
-    @Test
-    public void getUnflaggedNeighboursWorks() {
-        solver.board.setFlag(solver.board.getFieldAt(3, 3));
-        ArrayList<Field> unflaggedNeighbours = solver.getUnFlaggeddNeighbours(2, 3);
-        assertTrue(unflaggedNeighbours.contains(solver.board.getFieldAt(3, 2)));
-        assertTrue(unflaggedNeighbours.contains(solver.board.getFieldAt(2, 4)));
-        assertTrue(unflaggedNeighbours.contains(solver.board.getFieldAt(3, 4)));
-        assertEquals(3, unflaggedNeighbours.size());
     }
     
 }
