@@ -34,3 +34,13 @@ Date      | Time  | Topic  |
 28.5.2019 | 1,5h  | Game logics |
 30.5.2019 | 2h    | Game logics, datastructures |
 31.5.2019 | 3h    | Architecture, solver |
+
+## Week 5
+
+Date      | Time  | Topic  |
+----------|-------|--------|
+2.6.2019 | 5h    | solver |
+3.6.2019 | 1,5h  | solver |
+4.6.2019 | 1h    | GUI |
+5.6.2019 | 1h    | Datastructures |
+7.6.2019 | 2h    | JavaDoc and refactoring |
