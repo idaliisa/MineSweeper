@@ -5,19 +5,18 @@
  */
 package tira.datastructures;
 
-import java.util.Arrays;
 
 /**
  *
  * @author ida
  */
-public class CustomArrayList<Item> {
+public class CustomArrayList<T> {
     
-    private Item[] list;
+    private T[] list;
     private int actualSize;
 
     public CustomArrayList() {
-        list = (Item[]) new Object[10];
+        list = (T[]) new Object[10];
     }
     
     
@@ -28,9 +27,9 @@ public class CustomArrayList<Item> {
     
     
     
-    public Object get(int index) {
+    public T get(int index) {
         if (index < actualSize) {
-            return list[index];
+            return (T) list[index];
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -38,7 +37,7 @@ public class CustomArrayList<Item> {
     
     
     
-    public void add(Item obj) {
+    public void add(T obj) {
         if(list.length - actualSize <= 0) {
             increaseListSize();
         }
@@ -50,7 +49,11 @@ public class CustomArrayList<Item> {
     
     private void increaseListSize() {
         int newSize = list.length * 2;
-        list = Arrays.copyOf(list, newSize);
+        T[] newList = (T[]) new Object[newSize];
+        for (int i = 0; i < list.length; i++) {
+            newList[i] = list[i];
+        }
+        list= newList;
     }
     
     
