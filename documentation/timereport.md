@@ -44,3 +44,11 @@ Date      | Time  | Topic  |
 4.6.2019 | 1h    | GUI |
 5.6.2019 | 1h    | Datastructures |
 7.6.2019 | 2h    | JavaDoc and refactoring |
+
+##
+
+Date      | Time  | Topic  |
+----------|-------|--------|
+12.6.2019 | 3h    | datastructures |
+14.6.2019 | 2,5h  | performance tests, documentation |
+
