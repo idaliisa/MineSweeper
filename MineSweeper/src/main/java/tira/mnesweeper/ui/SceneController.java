@@ -85,7 +85,7 @@ public class SceneController implements Initializable {
                         String status = solver.board.getState(solver.board.getFieldAt(x, y));
                         gc.fillText(status, (x + 0.5) * fieldsize, (y + 0.5) * fieldsize);
                         
-                        if (solver.board.isFailed(x, y)) {
+                        if (solver.board.isFailed()) {
                             this.stop();
                         }
                         
