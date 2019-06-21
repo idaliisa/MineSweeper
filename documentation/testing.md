@@ -2,7 +2,9 @@
 ## Unit test and manual testing
 Project is tested both manually and automatically. Test coverage report:
 
-Graphical user interface and Main classes were excluded from test coverage.
+![tescoverage](https://github.com/idaliisa/MineSweeper/blob/master/documentation/pictures/testcoverage.png)
+
+[Graphical user interface](https://github.com/idaliisa/MineSweeper/tree/master/MineSweeper/src/main/java/tira/mnesweeper/ui) and [Main classes](https://github.com/idaliisa/MineSweeper/tree/master/MineSweeper/src/main/java/tira/minesweeper/main) were excluded from test coverage.
 
 
 
