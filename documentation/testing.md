@@ -21,6 +21,8 @@ Performance testing was executed for easy, intermediate and expert level games:
 |Intermediate| 27.93 | 35.92                 | 6570 ms |
 |Expert | 0.34       | 0.89                  | 7912 ms |
 
+Magnitude of solved games is the same as in the [literature](https://dash.harvard.edu/bitstream/handle/1/14398552/BECERRA-SENIORTHESIS-2015.pdf?sequence=1).
+
 Easy: 9X9 board with 10 mines
 
 Intermediate 16X16 board with 40 mines
