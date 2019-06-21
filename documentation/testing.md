@@ -8,11 +8,11 @@ Project is tested both manually and automatically. Test coverage report:
 
 
 
-Solver has been tested manually with graphical user interface. The solver works fine but it cannot always find the solution even if there would be one. Another algorithm implementnation would solve higher number of games. 
+Solver has been tested [manually with graphical user interface](https://github.com/idaliisa/MineSweeper/blob/master/MineSweeper/src/main/java/tira/minesweeper/main/JavaFXMineSweeper.java). The solver works fine but it cannot always find the solution even if there would be one. Another algorithm implementnation would solve higher number of games. 
 
 ## Performance testing for the solver
 
-Performance testing was executed for easy, intermediate and expert level games:
+[Performance testing](https://github.com/idaliisa/MineSweeper/blob/master/MineSweeper/src/main/java/tira/minesweeper/main/Main.java) was executed for easy, intermediate and expert level games:
 
 
 |Level | solved (%)  | solved (%), literature reference | Execution time per 10 000 games |
@@ -23,10 +23,10 @@ Performance testing was executed for easy, intermediate and expert level games:
 
 Magnitude of solved games is the same as in the [literature](https://dash.harvard.edu/bitstream/handle/1/14398552/BECERRA-SENIORTHESIS-2015.pdf?sequence=1).
 
-Easy: 9X9 board with 10 mines
-
-Intermediate 16X16 board with 40 mines
-
-Expert: 16X30 board with 99 mines
+|Level  | board size and mine count |
+|-------|---------------------------|
+|Easy |9X9 board with 10 mines  |
+|Intermediate |16X16 board with 40 mines |
+|Expert |16X30 board with 99 mines  |
 
 
