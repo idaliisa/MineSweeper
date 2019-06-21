@@ -6,8 +6,8 @@
 package tira.minesweeper.logic;
 
 
-import java.util.Random;
 import tira.datastructures.CustomArrayList;
+import tira.util.Random;
 
 
 /**
@@ -59,16 +59,20 @@ public class Board {
      * @param firstClick 
      */
     public void placeMines(int mineCount, Field firstClick) {
+        //use arraylist to store all possible fields that random can access
         Random r = new Random();
-
+        CustomArrayList fields = new CustomArrayList();
+        for (int i = 0; i < (grid.length); i++) {
+            fields.add(grid[i]);
+        }
         totalMines = 0;
                 
         while (totalMines < mineCount) {
-            int y = r.nextInt(rows);
-            int x = r.nextInt(cols);
+            int index = r.nextInt(fields.size());
+            Field f = (Field) fields.get(index);
             
-            if (getFieldAt(x, y).hasMine == false && !getFieldAt(x, y).equals(firstClick)) {
-                getFieldAt(x, y).hasMine = true;
+            if (f.hasMine == false && !f.equals(firstClick) && !getNeighbours(firstClick).contains(f)) {
+                f.hasMine = true;
                 totalMines++;
             }
         }        
@@ -287,12 +291,19 @@ public class Board {
     
     
     public boolean isSolved() {
-        if (totalMines == (rows * cols - openedFields)) {
-            return true;
-        } else {
-            return false;
+        int mineFree = 0;
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                if ((getFieldAt(x, y).isOpened()) && !getFieldAt(x, y).hasMine()) {
+                    mineFree++;
+                }
+            }
         }
-    } 
+        if ((size() - mineFree) == totalMines) {
+            return true;
+        }
+        return false;
+    }
     
     
     /**
@@ -315,22 +326,11 @@ public class Board {
 
     
     
-    public int getCols() {
-        return cols;
+    
+    public int size() {
+        return rows * cols;
     }
 
-    
-    
-    public int getRows() {
-        return rows;
-    }
-
-    
-    
-    public Field[] getGrid() {
-        return grid;
-    }
-    
     
     
 }
