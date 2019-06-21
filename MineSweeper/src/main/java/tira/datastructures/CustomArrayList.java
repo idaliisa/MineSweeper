@@ -14,7 +14,7 @@ package tira.datastructures;
  * Custom implementation to ArrayList. Resizable-array starting with size of 10.
  * Implements size, get, add and remove operations.
  * @author ida
- * @param <T> 
+ * @param <T> Type of elements
  */
 public class CustomArrayList<T> {
     
