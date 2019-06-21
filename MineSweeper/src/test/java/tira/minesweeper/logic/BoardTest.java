@@ -152,12 +152,12 @@ public class BoardTest {
     @Test
     public void isFailedAtWorks1() {
         board.openField(board.getFieldAt(0, 0));
-        assertTrue(board.isFailed(0, 0));
+        assertTrue(board.isFailedAt(0, 0));
     }   
     @Test
     public void isFailedAtWorks2() {
         board.openField(board.getFieldAt(2, 0));
-        assertFalse(board.isFailed(2, 0));
+        assertFalse(board.isFailedAt(2, 0));
     }
     @Test
     public void isFailedWorks1() {
