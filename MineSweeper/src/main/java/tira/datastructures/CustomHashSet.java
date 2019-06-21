@@ -23,7 +23,7 @@ public class CustomHashSet<T> {
     }
 
    
-    
+  
     public class Entry<T> {
         T obj;
         Entry next;
@@ -31,11 +31,8 @@ public class CustomHashSet<T> {
         public Entry(T obj) {
             this.obj = obj;
             this.next = null;
-        }
-
-        public T getData() {
-            return obj;
-        }
+        }      
+        
     }
 
     
@@ -73,7 +70,7 @@ public class CustomHashSet<T> {
         Entry current = buckets[index];
 
         if (current == null) {
-            new Exception("Object not found");
+            throw new NullPointerException("Object not found");
         }
 
         if (current.obj.equals(obj)) {
@@ -94,15 +91,7 @@ public class CustomHashSet<T> {
         }
         return null;
     }
-    
-    
-    
-    
-    private int bucketLength() {
-        return buckets.length;
-    }
-
-    
+       
             
     public boolean isEmpty() {
         if (size == 0) {
@@ -110,7 +99,12 @@ public class CustomHashSet<T> {
         }
         return false;
     }
+
     
+    
+    public int getSize() {
+        return size;
+    }
     
     
     
@@ -137,9 +131,6 @@ public class CustomHashSet<T> {
                 current = current.next;
             } else {
                 index++;
-                if (index == buckets.length) {
-                   new Exception("Next object does not exist");
-                }
                 current = buckets[index];
              }
             return (T) current.obj;

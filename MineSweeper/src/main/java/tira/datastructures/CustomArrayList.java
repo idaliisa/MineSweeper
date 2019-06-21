@@ -45,6 +45,23 @@ public class CustomArrayList<T> {
         
     }
     
+    public T remove(int index) {
+        if (index < actualSize && index >= 0) {
+            int i = index;
+            T removed = list[index];
+
+            for (int j = 0; j < actualSize - 1; j++) {
+                list[j] = list[j + 1];
+            }
+            actualSize--;
+            return removed;
+        }
+        else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
+    }
+    
     
     
     private void increaseListSize() {
@@ -54,6 +71,15 @@ public class CustomArrayList<T> {
             newList[i] = list[i];
         }
         list= newList;
+    }
+    
+    public boolean contains(T obj) {
+        for (int i = 0; i < actualSize; i++) {
+            if (list[i].equals(obj)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     
