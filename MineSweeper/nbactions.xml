@@ -14,4 +14,11 @@
                 <goal>jacoco:report</goal>
             </goals>
         </action>
+    <action>
+            <actionName>CUSTOM-generate javadoc</actionName>
+            <displayName>generate javadoc</displayName>
+            <goals>
+                <goal>javadoc:javadoc</goal>
+            </goals>
+        </action>
 </actions>
