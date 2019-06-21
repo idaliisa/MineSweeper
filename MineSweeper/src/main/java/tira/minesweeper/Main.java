@@ -17,22 +17,37 @@ import tira.minesweeper.measurement.Performance;
 public class Main {
     
     public static void main(String[] args) {
+        
+        
         //to-do: rows,cols and mines are hardcoded, ask rather from user.
-        int rows = 16;
-        int cols = 16;
-        int mines = 40;
         
-        Performance performance = new Performance(rows, cols, mines);
-        performance.doCalculations();
-        double failed = performance.getFailed();
-        double solved = performance.getSolved();
-        int repetitions = performance.getRepetition();
-        long execTime = performance.getTime();
+        //easy level
+        System.out.println("Easy Level:");
+        Performance performance10000e = new Performance(9, 9, 10, 10000);
+        performance10000e.doCalculations(); 
+        System.out.println(performance10000e.getFailed() + "% are failed");
+        System.out.println(performance10000e.getSolved() + "% are solved");
+        System.out.println(performance10000e.getTime() + " ms for " + performance10000e.getRepetition() + " games \n");
         
-        //there is a bug 
-        System.out.println(failed + "% are failed");
-        System.out.println(solved + "% are solved");
-        System.out.println(execTime + " ms for " + repetitions + " games");
-                
+        
+        //intermediate level
+        System.out.println("Intermediate Level:");
+        Performance performance10000i = new Performance(16, 16, 40, 10000);
+        performance10000i.doCalculations(); 
+        System.out.println(performance10000i.getFailed() + "% are failed");
+        System.out.println(performance10000i.getSolved() + "% are solved");
+        System.out.println(performance10000i.getTime() + " ms for " + performance10000i.getRepetition() + " games \n");
+             
+        
+        //expert level         
+        System.out.println("Expert Level:");
+        Performance performance10000m = new Performance(16, 30, 99, 10000);
+        performance10000m.doCalculations(); 
+        System.out.println(performance10000m.getFailed() + "% are failed");
+        System.out.println(performance10000m.getSolved() + "% are solved");
+        System.out.println(performance10000m.getTime() + " ms for " + performance10000m.getRepetition() + " games \n");
+        
+        
+
     }    
 }
