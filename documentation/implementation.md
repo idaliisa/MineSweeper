@@ -30,8 +30,8 @@ Solving minesweeper is NP-complete problem. Solver implemeted in this project us
 
 This project uses also algorithm to generate pseudo random. It uses milliSeconds as a seed and generates pseudorandom from the last two numbers of the seed.
 
-## Complexity
-
+## Complexity of solver
+In the worst scenario the time complexity of the solver would be O(n * m * (m + k)), where n is the maximum number of quesses (i.e. board/grid size), m is the size of safe/question fields set and k is row number.
 
 ## Improvements
 * Significantly higher number of games could be solved with another algorithm based on constraint satisfaction problem.
