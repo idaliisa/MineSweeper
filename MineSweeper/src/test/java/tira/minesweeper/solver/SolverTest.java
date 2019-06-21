@@ -9,7 +9,9 @@ package tira.minesweeper.solver;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tira.datastructures.CustomArrayList;
 import tira.minesweeper.logic.Board;
+import tira.minesweeper.logic.Field;
 
 /**
  *
@@ -79,6 +81,26 @@ public class SolverTest {
         solver.board.openField(solver.board.getFieldAt(3, 2));
         solver.board.openField(solver.board.getFieldAt(3, 4));
         assertTrue(solver.isAMN(2, 3));
+    }
+    
+    @Test
+    public void getUnknowns() {
+        assertEquals(9, solver.getUnknowns().size());
+    }
+    
+    @Test
+    public void getRandomField() {
+        CustomArrayList unknowns = solver.getUnknowns();
+        for (int i = 0; i < 1000; i++) {
+            Field unknown = (Field) solver.getRandomField(unknowns);
+            for (int j = 0; j < unknowns.size(); j++) {
+                if (unknowns.get(j).equals(unknown)) {
+                    assertTrue(j >= 0 && j < unknowns.size());
+                    break;
+                }
+            }
+        }
+    
     }
     
 }

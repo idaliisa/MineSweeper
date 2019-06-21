@@ -9,6 +9,7 @@ package tira.minesweeper.logic;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tira.datastructures.CustomArrayList;
 
 
 /**
@@ -187,7 +188,7 @@ public class BoardTest {
     }
     
     @Test
-    public void isSolvedWorks() {
+    public void TrueWhenSolved() {
         assertTrue(board.isSolved());
     }
     
@@ -215,4 +216,31 @@ public class BoardTest {
         board.openField(board.getFieldAt(0, 0));
         assertEquals("M", board.getState(board.getFieldAt(0, 0)));
     }
+    
+    @Test
+    public void placeMines() {
+        board = new Board(3, 4);
+        Field firstClick = new Field(new Coordinate(3,4));
+        board.openField(firstClick);
+        board.placeMines(2, firstClick);
+        CustomArrayList neighboursFirstClick = board.getNeighbours(firstClick);
+        for (int i = 0; i < neighboursFirstClick.size(); i++) {
+            Field field = (Field) neighboursFirstClick.get(i);
+            assertFalse(field.hasMine());
+        }
+        
+    }
+    
+    @Test
+    public void openOneField() {
+        board = new Board(3, 4);       
+        //set two mines in x-y coordinates (0,0) and (1,0)
+        board.setMine(board.getFieldAt(0, 0));
+        board.setMine(board.getFieldAt(1, 0));
+        
+        board.openOneField(board.getFieldAt(3, 0));
+        assertTrue(board.getFieldAt(3, 0).isOpened());
+        assertFalse(board.getFieldAt(3, 1).isOpened());
+    }
+    
 }

@@ -33,4 +33,15 @@ public class FieldTest {
     public void equalsFieldsWorks2() {
         assertFalse(field.equals(new Field(new Coordinate(1, 0))));
     }
+    
+    @Test
+    public void notEqualWhenClassesMismatch() {
+        assertFalse(field.equals(new Field(new Coordinate(1, 0)).toString()));
+    }
+    
+    @Test
+    public void notEqualWhenParameterIsNull() {
+        Field f = null;
+        assertFalse(field.equals(f));
+    }
 }

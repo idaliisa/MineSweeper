@@ -5,10 +5,7 @@
  */
 package tira.datastructures;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -30,11 +27,12 @@ public class CustomArrayListTest {
     
     
     @Test
-    public void addsCorrectlytoCustomArrayList1() {
+    public void addsCorrectlytoCustomArrayList() {
         assertEquals("1", customArrayList.get(1).toString());
-    }    
+    }
+    
     @Test
-    public void addsCorrectlytoCustomArrayList2() {
+    public void addsCorrectlytoCustomArrayListWhenArrayLengthIsIncreased1() {
         customArrayList.add("3");
         customArrayList.add("4");
         customArrayList.add("5");
@@ -46,8 +44,9 @@ public class CustomArrayListTest {
         customArrayList.add("11");
         assertEquals("5", customArrayList.get(5).toString());
     }
+    
     @Test
-    public void addsCorrectlytoCustomArrayList3() {
+    public void addsCorrectlytoCustomArrayListWhenArrayLengthIsIncreased2() {
         customArrayList.add("3");
         customArrayList.add("4");
         customArrayList.add("5");
@@ -59,5 +58,34 @@ public class CustomArrayListTest {
         customArrayList.add("11");
         assertEquals("11", customArrayList.get(11).toString());
     }
+    
+    @Test
+    public void returnsTrueWhenArrayListContainsParamObject() {
+        assertTrue(customArrayList.contains("2"));
+    }
+
+    @Test
+    public void returnsFalseWhenArrayListDoesNotContainParamObject() {
+        assertFalse(customArrayList.contains("3"));
+    }
+    
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void indexOutOfBoundsExceptionForGet() {
+        customArrayList.get(3);
+    }
+    
+    @Test
+    public void removeElementThatIsInList() {
+        customArrayList.remove(0);
+        assertEquals("1", customArrayList.get(0));
+        assertEquals("2", customArrayList.get(1));
+        assertEquals(2, customArrayList.size());
+    }
+    
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void indexOutOfBoundsExceptionForRemove() {
+        customArrayList.remove(3);
+    }
+    
 
 }
