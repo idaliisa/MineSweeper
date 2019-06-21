@@ -15,18 +15,13 @@ Solver has been tested [manually with graphical user interface](https://github.c
 [Performance testing](https://github.com/idaliisa/MineSweeper/blob/master/MineSweeper/src/main/java/tira/minesweeper/main/Main.java) was executed for easy, intermediate and expert level games:
 
 
-|Level | solved (%)  | solved (%), literature reference | Execution time per 10 000 games |
-|------|-------------|-----------------------|---------------------------------|
-|Easy  | 62.68       | 68.19                 | 2012 ms |
-|Intermediate| 27.93 | 35.92                 | 6570 ms |
-|Expert | 0.34       | 0.89                  | 7912 ms |
+|Level |Board size and mine count | solved (%)  | solved (%), literature reference | Execution time per 10 000 games |
+|------|--------------------------|-------------|----------------------------------|---------------------------------|
+|Easy  | 9X9 board with 10 mines  | 62.68       | 68.19                 | 2012 ms |
+|Intermediate| 6X16 board with 40 mines   | 27.93 | 35.92                 | 6570 ms |
+|Expert | 16X30 board with 99 mines | 0.34       | 0.89                  | 7912 ms |
 
 Magnitude of solved games is the same as in the [literature](https://dash.harvard.edu/bitstream/handle/1/14398552/BECERRA-SENIORTHESIS-2015.pdf?sequence=1).
 
-|Level  | board size and mine count |
-|-------|---------------------------|
-|Easy |9X9 board with 10 mines  |
-|Intermediate |16X16 board with 40 mines |
-|Expert |16X30 board with 99 mines  |
 
 
