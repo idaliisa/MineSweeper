@@ -1,5 +1,5 @@
 # Minesweeper
-Project for [datastructures and algorithms](https://github.com/TiraLabra/2019_alkukesa) course.
+Project for [datastructures and algorithms](https://github.com/TiraLabra/2019_alkukesa) course. This is to implement the solver for minesweeper game. Also all datastructures are own implementations.
 
 ## Links to documentation
 ### [Specification](https://github.com/idaliisa/MineSweeper/blob/master/documentation/specification.md)
