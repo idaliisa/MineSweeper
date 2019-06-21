@@ -45,10 +45,17 @@ Date      | Time  | Topic  |
 5.6.2019 | 1h    | Datastructures |
 7.6.2019 | 2h    | JavaDoc and refactoring |
 
-##
+## Week 6
 
 Date      | Time  | Topic  |
 ----------|-------|--------|
 12.6.2019 | 3h    | datastructures |
 14.6.2019 | 2,5h  | performance tests, documentation |
+
+## Week 7
+
+Date      | Time  | Topic  |
+----------|-------|--------|
+20.6.2019 | 5h    | tests |
+21.6.2019 | 8h    | tests, documentation |
 
