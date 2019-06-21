@@ -72,7 +72,7 @@ public class Field {
         }
         Field o = (Field) obj;
         
-        if (o.getCoordinate().x == this.getCoordinate().x && o.getCoordinate().y == this.getCoordinate().y) {
+        if (o.getCoordinate().getX() == this.getCoordinate().getX() && o.getCoordinate().getY() == this.getCoordinate().getY()) {
             return true;
         } else {
             return false;
@@ -83,7 +83,7 @@ public class Field {
     
     @Override
     public int hashCode() {
-        return coordinate.x;
+        return coordinate.getX();
     }
         
 }

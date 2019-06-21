@@ -6,12 +6,12 @@
 package tira.minesweeper.solver;
 
 
-import java.util.Random;
 import tira.datastructures.CustomArrayList;
 import tira.datastructures.CustomHashSet;
 import tira.datastructures.CustomHashSet.CustomIterator;
 import tira.minesweeper.logic.Board;
 import tira.minesweeper.logic.Field;
+import tira.util.Random;
 
 /**
  *
@@ -90,8 +90,8 @@ public class Solver {
                 }
             
                 //check whether new safeFields are found
-                xCoord = x.getCoordinate().x;
-                yCoord = x.getCoordinate().y;
+                xCoord = x.getCoordinate().getX();
+                yCoord = x.getCoordinate().getY();
                 if (isAFN(xCoord, yCoord)) {
                     CustomArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
                     for (int i = 0; i < unFlagged.size(); i++) {
@@ -107,8 +107,8 @@ public class Solver {
             CustomIterator iterator = questionFields.iterator();
             while (iterator.hasNext()) {
                 Field f =  (Field) iterator.next();
-                xCoord = f.getCoordinate().x;
-                yCoord = f.getCoordinate().y;
+                xCoord = f.getCoordinate().getX();
+                yCoord = f.getCoordinate().getY();
                 
                 if (isAMN(xCoord, yCoord)) {
                     CustomArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);
@@ -125,8 +125,8 @@ public class Solver {
             iterator = questionFields.iterator();
             while (iterator.hasNext()) {
                     Field f =  (Field) iterator.next();
-                    xCoord = f.getCoordinate().x;
-                    yCoord = f.getCoordinate().y;
+                    xCoord = f.getCoordinate().getX();
+                    yCoord = f.getCoordinate().getY();
                 
                 if (isAFN(xCoord, yCoord)) {
                     CustomArrayList<Field> unFlagged = getUnFlaggeddNeighbours(xCoord, yCoord);

@@ -18,14 +18,14 @@ public class Performance {
     private long time;
     private Solver solver;
 
-    public Performance(int rows, int cols, int mines) {
+    public Performance(int rows, int cols, int mines, int repetitions) {
         
         this.rows = rows;
         this.cols = cols;
         this.mines = mines;
+        this.repetition = repetitions;
         this.failed = 0;
         this.solved = 0;
-        this.repetition = 1000;
         this.time = 0;
     
     }
@@ -52,7 +52,7 @@ public class Performance {
             
             i++;
         }
-        
+
         long endTime = System.currentTimeMillis();
         
         time = endTime - startTime;
@@ -61,14 +61,13 @@ public class Performance {
     
     
     public double getFailed() {
-        return  failed * 100.0 / repetition;
+        return  failed * 100.0 / getRepetition();
     }
 
     
     
     public double getSolved() {
-        return solved * 100.0 / repetition;
-
+        return solved * 100.0 / getRepetition();
     }
 
     
