@@ -19,8 +19,6 @@ public class Main {
     public static void main(String[] args) {
         
         
-        //to-do: rows,cols and mines are hardcoded, ask rather from user.
-        
         //easy level
         System.out.println("Easy Level:");
         Performance performance10000e = new Performance(9, 9, 10, 10000);

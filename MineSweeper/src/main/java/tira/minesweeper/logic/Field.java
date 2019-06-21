@@ -12,7 +12,9 @@ package tira.minesweeper.logic;
  */
 /**
  * 
- * Square in the minesweeper board. Holds information about square status.
+ * Square in the minesweeper board. Holds information about square status. 
+ * Implements isOpened,getNumber, hasFlag, hasMine, getCoordinate, equals and hashcode
+ * operations.
  */
 public class Field {
 
@@ -31,37 +33,56 @@ public class Field {
     }
     
     
-    
+    /**
+     * 
+     * @return true if the field is opened
+     */
     public boolean isOpened() {
         return isOpened;
     }
 
     
-    
+    /**
+     * 
+     * @return count of mines at neighbours
+     */
     public int getNumber() {
         return number;
     }
 
     
-    
+    /**
+     * 
+     * @return true if the field is flagged
+     */
     public boolean hasFlag() {
         return hasFlag;
     }
 
     
-    
+    /**
+     * 
+     * @return true if the field has mine
+     */
     public boolean hasMine() {
         return hasMine;
     }
 
     
-        
+    /**
+     * 
+     * @return coordinate of teh field
+     */    
     public Coordinate getCoordinate() {
         return coordinate;
     }
     
     
-    
+    /**
+     * 
+     * @param obj specified element
+     * @return true if both are type of Field and x-y-coordinates do match
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -80,7 +101,10 @@ public class Field {
     }
     
     
-    
+    /**
+     * 
+     * @return hashCode that is x-coordinate
+     */
     @Override
     public int hashCode() {
         return coordinate.getX();

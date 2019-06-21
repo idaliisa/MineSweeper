@@ -9,7 +9,10 @@ package tira.minesweeper.logic;
  *
  * @author ida
  */
-
+/***
+ * XY-coordinate where X corresponds to gameboard colums and Y to rows.
+ * 
+ */
 public class Coordinate {
     public final int x;
     public final int y;
@@ -18,16 +21,24 @@ public class Coordinate {
         this.x = x;
         this.y = y;
     }
-
+    
+    
+    /**
+     * 
+     * @return x-coordinate
+     */
     public int getX() {
         return x;
     }
 
+    
+    /**
+     * 
+     * @return y-coordinate
+     */
     public int getY() {
         return y;
     }
     
-    
-    
-    
+        
 }

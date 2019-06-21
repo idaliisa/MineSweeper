@@ -16,8 +16,7 @@ import javafx.stage.Stage;
  * @author ida
  */
 public class JavaFXMineSweeper extends Application {
-    //to-do: add final int for the max row (16), max col(30) and max mine. Allow lesser only. 
-    //This restriction is because of the GUI.
+    //Supports row number 9-16, col number 9-30 and mine number 10-99.
     //easy: 9,9,10; intermediate 16, 16, 40; expert 16, 30, 99
     public static int rows = 16;
     public static int cols = 16;

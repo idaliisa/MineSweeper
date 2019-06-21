@@ -17,6 +17,10 @@ import tira.util.Random;
  *
  * @author ida
  */
+/***
+ * Solves the mineSweeper game with Double Set Single Point Algorithm.
+ * 
+ */
 public class Solver {
     public Board board;
     CustomHashSet<Field> safeFields;
@@ -38,8 +42,10 @@ public class Solver {
         
     }
     
+    /**
+     * Creates the board after the first click i.e. the randomly selected field.
+     */
     public void init() {
-        //init the board only after the first (random) click
         board.createBoard();
         int yCoord = random.nextInt(rows);
         int xCoord = random.nextInt(cols);
@@ -144,7 +150,7 @@ public class Solver {
        
 
     /**
-     * 
+     * All free neighbours.
      * @param x x coordinate
      * @param y y coordinate
      * @return true if all the neighbours are know to be free of mines
@@ -159,9 +165,9 @@ public class Solver {
     
     
     /**
-     * 
-     * @param x x coordiante
-     * @param y y coordinate
+     * All mine neighbours.
+     * @param x x-coordiante
+     * @param y y-coordinate
      * @return true if all the neigbours are known to be mines
      */
     public boolean isAMN(int x, int y) {
@@ -174,9 +180,9 @@ public class Solver {
     
     
     /**
-     * 
-     * @param x x coordiante
-     * @param y y coordiante
+     * Unflagged neighbours
+     * @param x x-coordiante
+     * @param y y-coordiante
      * @return list of closed neighbours that are unflagged
      */
     public CustomArrayList<Field> getUnFlaggeddNeighbours(int x, int y) {
@@ -243,8 +249,8 @@ public class Solver {
     
     /**
      * 
-     * @param unknowns
-     * @return random field amongst unkown fields
+     * @param unknowns list of unknown fields
+     * @return random field amongst unknown fields
      */
     public Field getRandomField(CustomArrayList<Field> unknowns) {
         Random r = new Random();

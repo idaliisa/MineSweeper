@@ -10,6 +10,12 @@ package tira.datastructures;
  *
  * @author ida
  */
+/**
+ * Custom implementation to ArrayList. Resizable-array starting with size of 10.
+ * Implements size, get, add and remove operations.
+ * @author ida
+ * @param <T> 
+ */
 public class CustomArrayList<T> {
     
     private T[] list;
@@ -20,13 +26,20 @@ public class CustomArrayList<T> {
     }
     
     
-    
+    /**
+     * 
+     * @return number of elements in the list
+     */
     public int size() {
         return actualSize;
     }
     
     
-    
+    /**
+     * 
+     * @param index position in the list
+     * @return element at the specified position
+     */
     public T get(int index) {
         if (index < actualSize) {
             return (T) list[index];
@@ -36,7 +49,10 @@ public class CustomArrayList<T> {
     }
     
     
-    
+    /**
+     * Adds the specified element to the end of the list.
+     * @param obj element to be added
+     */
     public void add(T obj) {
         if(list.length - actualSize <= 0) {
             increaseListSize();
@@ -45,6 +61,12 @@ public class CustomArrayList<T> {
         
     }
     
+    
+    /**
+     * Removes the element at the specified position.
+     * @param index position in the list
+     * @return removed elemet
+     */
     public T remove(int index) {
         if (index < actualSize && index >= 0) {
             int i = index;
@@ -63,7 +85,9 @@ public class CustomArrayList<T> {
     }
     
     
-    
+    /**
+     * Copy elemnts to the new double-sized list.
+     */
     private void increaseListSize() {
         int newSize = list.length * 2;
         T[] newList = (T[]) new Object[newSize];
@@ -73,6 +97,12 @@ public class CustomArrayList<T> {
         list= newList;
     }
     
+    
+    /**
+     * Iterates the list and checks whether at least one specified element exists.
+     * @param obj specified element
+     * @return True if the list contains the specified element.
+     */
     public boolean contains(T obj) {
         for (int i = 0; i < actualSize; i++) {
             if (list[i].equals(obj)) {

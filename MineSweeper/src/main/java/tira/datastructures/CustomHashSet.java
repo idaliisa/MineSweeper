@@ -11,6 +11,12 @@ import java.util.Iterator;
  *
  * @author ida
  */
+/**
+ * Custom implementation to hashSet. Implements add, remove, isEmtpy and size operations.
+ * Uses Entry and CustomIterator classes and is iterable.
+ * @author ida
+ * @param <T> Type of elements
+ */
 public class CustomHashSet<T> {
         
     private Entry[] buckets;
@@ -36,7 +42,11 @@ public class CustomHashSet<T> {
     }
 
     
-    
+    /**
+     * Adds the specified element to the set if not yet added.
+     * @param obj specified element
+     * @return true if added
+     */
     public boolean add(T obj) {
         int index = obj.hashCode() % buckets.length;
         Entry current = buckets[index];
@@ -64,7 +74,11 @@ public class CustomHashSet<T> {
     }
     
     
-    
+    /**
+     * Removes the specified element if it is present in the set.
+     * @param obj specified element
+     * @return removed element
+     */
     public T remove(T obj) {
         int index = obj.hashCode() % buckets.length;
         Entry current = buckets[index];
@@ -92,7 +106,11 @@ public class CustomHashSet<T> {
         return null;
     }
        
-            
+    
+    /**
+     * 
+     * @return True if set does not contain eny elements
+     */
     public boolean isEmpty() {
         if (size == 0) {
             return true;
@@ -101,19 +119,28 @@ public class CustomHashSet<T> {
     }
 
     
-    
+    /**
+     * 
+     * @return number of elements in the set
+     */
     public int getSize() {
         return size;
     }
     
     
-    
+    /**
+     * Uses CustomIterator class. Implements next and hasNext operations.
+     * @return iterator over the elements in set
+     */
     public CustomIterator iterator() {
         return new CustomIterator<>();
     }
     
 
-
+    /**
+     * 
+     * @param <T> Type of element
+     */
     public class CustomIterator<T> implements Iterator {
     
         private Entry current;
@@ -125,7 +152,10 @@ public class CustomHashSet<T> {
         }
         
         
-        
+        /**
+         * 
+         * @return next element
+         */
         public T next() {
             if (current != null && current.next != null) {
                 current = current.next;
@@ -137,7 +167,10 @@ public class CustomHashSet<T> {
         }
           
           
-        
+        /**
+         * 
+         * @return true if next element is present
+         */
         public boolean hasNext() {
             if (current != null && current.next != null) { 
                 return true;

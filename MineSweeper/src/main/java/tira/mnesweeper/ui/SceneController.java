@@ -53,7 +53,7 @@ public class SceneController implements Initializable {
     
     /**
      * Draws the MineSweeper board. Fires when 'New Game' button is clicked.
-     * @param event 
+     * @param event click 'New Game' button
      */
     @FXML
     private void handleGame(ActionEvent event) {
@@ -102,7 +102,7 @@ public class SceneController implements Initializable {
     
     /**
      * Open square on left click and set/remove flag on right click
-     * @param event 
+     * @param event right/left mouse click
      */
     @FXML
     private void handleOnMouseReleased(MouseEvent event) {
@@ -123,7 +123,7 @@ public class SceneController implements Initializable {
     
     
     /**
-     * Fires when 'Simulate' button is clicked.
+     * Fires when 'Simulate' button is clicked. Note that 'New Game' needs to be clicked first.
      */
     @FXML
     private void handleSimulation() {
@@ -131,26 +131,58 @@ public class SceneController implements Initializable {
     }
   
     
+    /**
+     * Sets the number of columns and they need to be between 9 and 30.
+     * @param cols number of columns in the board
+     */
     public void setCols(int cols) {
-        this.cols = cols;
+        if (cols >= 9 && cols <= 30) {
+        this.cols = cols;            
+        } else {
+            new Exception("Column number is not supported. Number should be between 9 and 30.");            
+        }
+
     }
 
     
-    
+    /**
+     * Sets the number of rows and they need to be between 9 and 16.
+     * @param rows number of rows in the board
+     */
     public void setRows(int rows) {
-        this.rows = rows;
+        if (rows >= 9 && rows <= 16) {
+            this.rows = rows;
+        } else {
+            new Exception("Row number is not supported. Number should be between 9 and 16.");
+        }
+
     }
 
     
-    
+    /**
+     * Sets the number of mines and they need to be between 10 and 99.
+     * @param mines number of mines on the board
+     */
     public void setMines(int mines) {
-        this.mines = mines;
+        if (mines >= 10 && mines <= 99) {
+            this.mines = mines;
+        } else {
+            new Exception("Mine number is not supported. Number should be between 10 and 99.");
+        }
+
     }
 
     
-    
+    /**
+     * Help method for GUI to increase the fieldsize
+     * @param fieldsize 
+     */
     public void setFieldsize(double fieldsize) {
-        this.fieldsize = fieldsize;
+        if (fieldsize >= 1.0) {
+            this.fieldsize = fieldsize;
+        } else {
+            new Exception("Should increase the fieldsize");
+        }
     } 
     
     

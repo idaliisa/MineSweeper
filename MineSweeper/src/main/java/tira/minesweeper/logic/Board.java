@@ -16,7 +16,10 @@ import tira.util.Random;
  */
 /**
  * 
- * Minesweeper Board where X increases left to right and y top to bottom
+ * Minesweeper Board where X increases left to right and Y top to bottom. Implements
+ * createBoard, placeMines, inBounds, getFieldAt, getNeighbours, placeNumbers, 
+ * openField, openOneField, setMine, setFlag, removeFlag, numberUnfoundMines, isFailed,
+ * isFailedAt,isSolved, getState, size.
  */
 public class Board {
     public Field[] grid;
@@ -36,13 +39,20 @@ public class Board {
     }
     
     
-    
+    /**
+     * Converts 2D-grid to 1D
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @return 
+     */
     private int twoDtoOneD(int x, int y) {
         return x + (y * cols);
     }
 
     
-       
+    /**
+     * Adds fields to the game board.
+     */   
     public void createBoard() { 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
@@ -54,19 +64,20 @@ public class Board {
 
            
     /**
-     * Set totalMines after createBoard() and the first click
-     * @param mineCount
-     * @param firstClick 
+     * Place mines randomly after createBoard() and the first click. First click 
+     * is not mine.
+     * @param mineCount total number of mines
+     * @param firstClick the first click
      */
     public void placeMines(int mineCount, Field firstClick) {
-        //use arraylist to store all possible fields that random can access
-        Random r = new Random();
+        //restore fields to arrayList and select random field from the list later      
         CustomArrayList fields = new CustomArrayList();
         for (int i = 0; i < (grid.length); i++) {
             fields.add(grid[i]);
         }
+        Random r = new Random(); 
         totalMines = 0;
-                
+        //place mines to random positions
         while (totalMines < mineCount) {
             int index = r.nextInt(fields.size());
             Field f = (Field) fields.get(index);
@@ -84,7 +95,7 @@ public class Board {
      * @param coordinate x-y coordinate
      * @return true if coordinate is in bounds
      */
-    public boolean inBounds(Coordinate coordinate) {
+    private boolean inBounds(Coordinate coordinate) {
         return inBounds(coordinate.x, coordinate.y);
     }
     
@@ -112,7 +123,7 @@ public class Board {
     
         
     /**
-     * 
+     * Lists all neighbour fields.
      * @param f field
      * @return neighbour fields
      */
@@ -150,7 +161,7 @@ public class Board {
 
     
     /**
-     * counts mines at neighbour fields
+     * Counts mines at neighbour fields.
      */    
     public void placeNumbers() {
     //to-do:change this method so that numbers are counted only after field is opened
@@ -169,15 +180,16 @@ public class Board {
     
      
     /**
-     * opens fields recursively
-     * @param field 
+     * Opens field and if number at specified field is zero, opens neighbours
+     * recursively.
+     * @param field field at specified position
      */
     public void openField(Field field) {
         if (inBounds(field.coordinate) && !field.isOpened) {
             field.isOpened = true;
             openedFields++;
             //to-do:refactor
-            if (field.number == 0 && !isFailed(field.coordinate.x, field.coordinate.y)) {
+            if (field.number == 0 && !isFailedAt(field.coordinate.x, field.coordinate.y)) {
                 openNeighbours(field);        
             }
         }
@@ -185,10 +197,10 @@ public class Board {
     
     
     /**
-     * help method for openField()
+     * Help method for openField.
      * @param field 
      */
-    public void openNeighbours(Field field) {
+    private void openNeighbours(Field field) {
         CustomArrayList<Field> neighbours = getNeighbours(field);
         for (int i = 0; i < neighbours.size(); i++) {
             Field n = neighbours.get(i);
@@ -200,7 +212,7 @@ public class Board {
     
     
     /**
-     * 
+     * Opens one field only.
      * @param field 
      */
     public void openOneField(Field field) {
@@ -217,7 +229,7 @@ public class Board {
     
     
     /**
-     * 
+     * Sets mine. Increases number of total mines accordingly.
      * @param field 
      */
     public void setMine(Field field) {
@@ -229,7 +241,7 @@ public class Board {
     
     
     /**
-     * 
+     * Sets flag. Increases number of flagged mines accordingly.
      * @param field 
      */
     public void setFlag(Field field) {
@@ -241,7 +253,7 @@ public class Board {
     
     
     /**
-     * 
+     * Removes flag. Decreased number of flagged mines accordingly.
      * @param field 
      */
     public void removeFlag(Field field) {
@@ -254,7 +266,7 @@ public class Board {
 
     /**
      * 
-     * @return 
+     * @return number of mines that are not flagged
      */
     public int numberUnfoundMines() {
         return totalMines - flaggedMines;
@@ -262,12 +274,12 @@ public class Board {
     
     
     /**
-     * 
-     * @param x
-     * @param y
-     * @return true if mine is opened
+     * Game is failed if the specified field is opened and has mine.
+     * @param x x-coordiante
+     * @param y y-coordinate
+     * @return true if mine is opened i.e if game fails
      */
-    public boolean isFailed(int x, int y) {
+    public boolean isFailedAt(int x, int y) {
         if (getFieldAt(x, y).hasMine && getFieldAt(x, y).isOpened) {
             return true;
         } else {
@@ -276,7 +288,10 @@ public class Board {
     }
     
     
-    
+    /**
+     * Iterates the game board and Game is failed if mine is opened.
+     * @return true if game fails
+     */
     public boolean isFailed() {
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
@@ -289,7 +304,10 @@ public class Board {
     }
     
     
-    
+    /**
+     * Iterates the game board and game is solved if all fields are opened that have not mine.
+     * @return true if game is solved
+     */
     public boolean isSolved() {
         int mineFree = 0;
         for (int y = 0; y < rows; y++) {
@@ -308,8 +326,8 @@ public class Board {
     
     /**
      * 
-     * @param field
-     * @return Field state by the highest priority first: mine, number, flag or closed
+     * @param field specified field
+     * @return field state by the highest priority first: mine, number, flag or closed
      */
     //to-do: refactor
     public String getState(Field field) {
@@ -326,7 +344,10 @@ public class Board {
 
     
     
-    
+    /**
+     * 
+     * @return number of fields in the game board
+     */
     public int size() {
         return rows * cols;
     }

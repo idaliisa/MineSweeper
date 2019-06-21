@@ -9,6 +9,10 @@ package tira.minesweeper.logic;
  *
  * @author ida
  */
+/**
+ * 
+ * Field state where M=mine, F=flagged, NUMBER=neighbour mine count, CLOSED = unopened 
+ */
 public enum State {
     //to-do: refactor
     M,
