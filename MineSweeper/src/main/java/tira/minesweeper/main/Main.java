@@ -3,8 +3,9 @@
  * To change this content content, choose Tools | Templates
  * and open the content in the editor.
  */
-package tira.minesweeper;
+package tira.minesweeper.main;
 
+import tira.minesweeper.*;
 import tira.minesweeper.measurement.Performance;
 
 

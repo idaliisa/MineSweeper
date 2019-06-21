@@ -37,7 +37,7 @@
                     <configuration>
                         <excludes>
                             <exclude>tira/mnesweeper/ui/*</exclude>
-                            <exclude>tira/minesweeper/*</exclude>                           
+                            <exclude>tira/minesweeper/main/*</exclude>                           
                         </excludes>
                     </configuration>
                     <executions>
